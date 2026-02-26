@@ -1,17 +1,24 @@
 cmake_minimum_required(VERSION 3.20)
 project(frontend LANGUAGES CXX)
 
-find_package(Qt6 REQUIRED COMPONENTS Widgets)
+find_package(Qt6 REQUIRED COMPONENTS Widgets Core Quick REQUIRED)
 
 # Tell CMake where your installed library is
 #list(APPEND CMAKE_PREFIX_PATH "$ENV{HOME}/local/caldav")
 
 #find_package(caldav CONFIG REQUIRED)
 
-add_executable(app main.cpp)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+set(QT_QML_GENERATE_QMLLS_INI ON)
+
+add_executable(app main.cpp qml.qrc)
 
 target_link_libraries(app
     PRIVATE
-        Qt6::Widgets
+		Qt6::Core
+		Qt6::Quick
 		#caldav::caldav
 )
