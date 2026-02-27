@@ -10,7 +10,8 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
 
     QQmlApplicationEngine engine;
-    engine.load("qrc:/main.qml");
+	engine.addImportPath("lib/MMaterial");
+	engine.load(QUrl(QStringLiteral("rc:/main.qml")));
     if(engine.rootObjects().isEmpty())
         return EXIT_FAILURE;
 

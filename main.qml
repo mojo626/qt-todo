@@ -1,6 +1,7 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.1
 import QtQuick.Window 2.0
+import MMaterial.UI as UI
 
 ApplicationWindow {
     id:     rectangle
@@ -36,6 +37,12 @@ ApplicationWindow {
           label.text = "Button was clicked => " + counter + " times "
           counter += 1
       }
-    }
+  }
+
+  UI.Overline {
+	  text: qsTr("Hello World")
+	  color: UI.Theme.text.secondary
+	  font.pixelSize: UI.Size.pixel16
+  }
 
 }
