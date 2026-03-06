@@ -3,10 +3,7 @@ project(frontend LANGUAGES CXX)
 
 find_package(Qt6 REQUIRED COMPONENTS Core Quick QuickControls2 REQUIRED)
 
-# Tell CMake where your installed library is
-#list(APPEND CMAKE_PREFIX_PATH "$ENV{HOME}/local/caldav")
-
-#find_package(caldav CONFIG REQUIRED)
+add_subdirectory(lib/caldav-cpp)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
@@ -14,7 +11,7 @@ set(CMAKE_AUTOMOC ON)
 set(QT_QML_GENERATE_QMLLS_INI ON)
 
 
-qt_add_executable(app main.cpp)
+qt_add_executable(app src/main.cpp src/caldavclient.cpp)
 
 qt_add_qml_module(app
 	URI frontend 
@@ -29,5 +26,5 @@ target_link_libraries(app
 		Qt6::Core
 		Qt6::Quick
 		Qt6::QuickControls2
-		#caldav::caldav
+		caldav
 )

@@ -2,6 +2,7 @@ import QtQuick
 import frontend
 import QtQuick.Controls 2.1
 import QtQuick.Window 2.0
+import CaldavClient
 
 Window {
     id:     rectangle
@@ -15,6 +16,10 @@ Window {
 
     // Variable counter
     property var counter: 0
+
+	CaldavClient {
+		id: client
+	}
 
     Label{
         id: label
