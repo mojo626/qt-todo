@@ -1,9 +1,9 @@
-import QtQuick 2.7
+import QtQuick
+import frontend
 import QtQuick.Controls 2.1
 import QtQuick.Window 2.0
-import MMaterial.UI as UI
 
-ApplicationWindow {
+Window {
     id:     rectangle
     x: 0
     y: 0
@@ -20,29 +20,23 @@ ApplicationWindow {
         id: label
         text: "A Label text"
         y:  200
-        anchors.horizontalCenter: parent.horizontalCenter
-    }
+		anchors.horizontalCenter: parent.horizontalCenter
+	}
 
-    Button{
-      id:   button1      // Unique identifier in QT
-      text: "Click me"
-      anchors.verticalCenterOffset: 29
-      anchors.horizontalCenterOffset: 0 // Button
-      //y:    400
-      anchors.horizontalCenter: parent.horizontalCenter
-      anchors.verticalCenter:   parent.verticalCenter
+	Button{
+		id:   button1      // Unique identifier in QT
+		text: "Click me"
+		anchors.verticalCenterOffset: 29
+		anchors.horizontalCenterOffset: 0 // Button
+		//y:    400
+		anchors.horizontalCenter: parent.horizontalCenter
+		anchors.verticalCenter:   parent.verticalCenter
 
-      onClicked: {
-          console.info("Button was clicked")
-          label.text = "Button was clicked => " + counter + " times "
-          counter += 1
-      }
-  }
-
-  UI.Overline {
-	  text: qsTr("Hello World")
-	  color: UI.Theme.text.secondary
-	  font.pixelSize: UI.Size.pixel16
-  }
+		onClicked: {
+			console.info("Button was clicked")
+			label.text = "Button was clicked => " + counter + " times "
+			counter += 1
+		}
+	}
 
 }
