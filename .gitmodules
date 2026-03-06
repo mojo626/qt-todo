@@ -1,0 +1,3 @@
+[submodule "lib/caldav-cpp"]
+	path = lib/caldav-cpp
+	url = https://github.com/mojo626/caldav-cpp.git
