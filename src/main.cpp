@@ -27,8 +27,6 @@ int main(int argc, char *argv[])
 
 	engine.loadFromModule("frontend", "Main");
 
-	std::cout << "hi" << std::endl;
-
 
     return app.exec();
 }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QObject>
+#include <QVariantList>
 #include "dotenv.h"
 
 class CaldavClient : public QObject {
@@ -8,7 +9,7 @@ class CaldavClient : public QObject {
     Q_OBJECT
     public:
         explicit CaldavClient(QObject *parent = 0);
-        Q_INVOKABLE QString getTodos();
+        Q_INVOKABLE QVariantList getTodos();
     
     private:
         dotenv env;

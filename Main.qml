@@ -28,6 +28,15 @@ Window {
 		anchors.horizontalCenter: parent.horizontalCenter
 	}
 
+	ListView {
+		anchors.fill: parent
+		model: client.getTodos()
+
+		delegate: Text {
+			text: modelData.summary
+		}
+	}
+
 	Button{
 		id:   button1      // Unique identifier in QT
 		text: "Click me"

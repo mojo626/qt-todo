@@ -4,7 +4,8 @@
             "name": "Mac",
             "includePath": [
                 "${workspaceFolder}/**",
-                "/opt/homebrew/Cellar/qtbase/6.10.2/lib/QtCore.framework/Versions/A/Headers"
+                "/opt/homebrew/Cellar/qtbase/6.10.2/lib/QtCore.framework/Versions/A/Headers",
+                "/usr/include/qt6/QtCore"
             ],
             "defines": [],
             "cStandard": "c17",
