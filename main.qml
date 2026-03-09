@@ -38,9 +38,7 @@ Window {
 		anchors.verticalCenter:   parent.verticalCenter
 
 		onClicked: {
-			console.info("Button was clicked")
-			label.text = "Button was clicked => " + counter + " times "
-			counter += 1
+			console.log(client.getTodos());
 		}
 	}
 

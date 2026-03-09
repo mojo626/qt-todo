@@ -11,7 +11,10 @@ set(CMAKE_AUTOMOC ON)
 set(QT_QML_GENERATE_QMLLS_INI ON)
 
 
+
 qt_add_executable(app src/main.cpp src/caldavclient.cpp)
+
+target_include_directories(app PUBLIC {CMAKE_SOURCE_DIR}/include)
 
 qt_add_qml_module(app
 	URI frontend 
