@@ -7,8 +7,8 @@ ApplicationWindow {
     id:rectangle
     width:  425
     height: 500
-    color: "#5bedbc"
     visible: true
+	
 
     // Variable counter
     property var counter: 0
@@ -16,6 +16,7 @@ ApplicationWindow {
 	CaldavClient {
 		id: client
 	}
+	
 	
 
 	ListView {

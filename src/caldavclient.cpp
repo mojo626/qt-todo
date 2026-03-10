@@ -21,7 +21,7 @@ QVariantList CaldavClient::getTodos() {
 
 	std::vector<caldav::Calendar> calendars = client.GetCalendars();
 
-    std::vector<caldav::Todo> todos = client.GetTodos(calendars[0]);
+    std::vector<caldav::Todo> todos = client.GetTodos(calendars[1]);
 
     QVariantList list;
 
