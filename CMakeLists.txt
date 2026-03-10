@@ -18,6 +18,8 @@ qt_add_executable(app
 	include/caldavclient.h
 )
 
+qt_policy(SET QTP0004 NEW)
+
 target_include_directories(app 
 	PUBLIC 
 		${CMAKE_SOURCE_DIR}/include
@@ -28,6 +30,8 @@ qt_add_qml_module(app
 	RESOURCE_PREFIX /
 	QML_FILES
 	Main.qml
+	qml/SideBar.qml
+	qml/TodoList.qml
 )
 
 

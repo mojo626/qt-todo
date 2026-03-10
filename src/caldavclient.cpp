@@ -4,20 +4,18 @@
 #include "caldav/calendar.h"
 #include "caldav/client.h"
 #include "caldav/todo.h"
+#include <QtCore/qcontainerfwd.h>
 #include <vector>
 #include <QVariantList>
 #include <QVariantMap>
 #include <QDateTime>
 
-CaldavClient::CaldavClient(QObject *parent) : QObject(parent), env("../.env") {
-    user_pass = "ben:" + env.get("PASSWORD");
+CaldavClient::CaldavClient(QObject *parent) : QObject(parent), env("../.env"), client("https://calendar.benjaynes.com","ben:" + env.get("PASSWORD")) {
 
 }
 
-QVariantList CaldavClient::getTodos() {  
-    
 
-	caldav::Client client("https://calendar.benjaynes.com", user_pass);
+QVariantList CaldavClient::getTodos() {  
 
 	std::vector<caldav::Calendar> calendars = client.GetCalendars();
 
@@ -34,6 +32,24 @@ QVariantList CaldavClient::getTodos() {
         item["status"] = todo.status == caldav::TodoStatus::COMPLETED;
         std::cout << todo.created << std::endl;
         item["created"] = QDateTime::fromString(QString::fromStdString(todo.created), "yyyyMMddThhmmssZ");
+
+        list.append(item);
+    }
+
+    return list;
+}
+
+QVariantList CaldavClient::getCalendars() {
+
+    std::vector<caldav::Calendar> calendars = client.GetCalendars();
+
+    QVariantList list;
+
+    for (const auto& calendar : calendars) {
+        QVariantMap item;
+
+        item["display_name"] = QString::fromStdString(calendar.display_name);
+        item["color"] = QString::fromStdString(calendar.color);
 
         list.append(item);
     }
