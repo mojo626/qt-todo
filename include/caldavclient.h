@@ -12,7 +12,7 @@ class CaldavClient : public QObject {
     Q_OBJECT
     public:
         explicit CaldavClient(QObject *parent = 0);
-        Q_INVOKABLE QVariantList getTodos();
+        Q_INVOKABLE QVariantList getTodos(int cal_id);
         Q_INVOKABLE QVariantList getCalendars();
     
     private:

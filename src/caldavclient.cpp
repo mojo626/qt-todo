@@ -10,16 +10,16 @@
 #include <QVariantMap>
 #include <QDateTime>
 
-CaldavClient::CaldavClient(QObject *parent) : QObject(parent), env("../.env"), client("https://calendar.benjaynes.com","ben:" + env.get("PASSWORD")) {
+CaldavClient::CaldavClient(QObject *parent) : QObject(parent), env("../.env"), client(env.get("CALENDAR_URL"),"ben:" + env.get("PASSWORD")) {
 
 }
 
 
-QVariantList CaldavClient::getTodos() {  
+QVariantList CaldavClient::getTodos(int cal_id) {  
 
 	std::vector<caldav::Calendar> calendars = client.GetCalendars();
 
-    std::vector<caldav::Todo> todos = client.GetTodos(calendars[1]);
+    std::vector<caldav::Todo> todos = client.GetTodos(calendars[cal_id]);
 
     QVariantList list;
 
@@ -49,6 +49,7 @@ QVariantList CaldavClient::getCalendars() {
 
         item["display_name"] = QString::fromStdString(calendar.display_name);
         item["color"] = QString::fromStdString(calendar.color);
+        item["id"] = list.size();
 
         list.append(item);
 

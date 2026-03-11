@@ -12,18 +12,15 @@ ApplicationWindow {
     height: 600
     visible: true
 
-    // Variable counter
-    property var counter: 0
+    function changeCalendar(newCal) {
+        mainView.calendar = newCal
+    }
 
 
     CaldavClient {
         id: client
     }
 
-    FontLoader {
-        id: iconFont
-        source: "./fonts/MaterialIcons-Regular.ttf"
-    }
 
     FontLoader {
         id: materialIcons
@@ -43,7 +40,9 @@ ApplicationWindow {
         SideBar {}
     }
 
-	TodoList {
+	MainView {
+        id: mainView
+
         property alias drawerVisible: sidePanelDrawer.visible
 
 		transform: Translate {

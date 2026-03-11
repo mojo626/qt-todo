@@ -34,7 +34,7 @@ qt_add_qml_module(app
 	QML_FILES
 		Main.qml
 		qml/SideBar.qml
-		qml/TodoList.qml
+		qml/MainView.qml
 		qml/IconButton.qml
 		qml/Icons.qml
 	RESOURCES

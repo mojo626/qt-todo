@@ -5,7 +5,11 @@ import QtQuick.Layouts
 import CaldavClient
 
 Rectangle {
+    id: mainView
+
     anchors.fill: parent
+
+    property int calendar: 0
 
     ColumnLayout {
         anchors.fill: parent
@@ -25,7 +29,7 @@ Rectangle {
             Layout.fillWidth: true
             Layout.fillHeight: true
             spacing: 20
-            model: client.getTodos()
+            model: client.getTodos(mainView.calendar)
 
             delegate: CheckBox {
                 checked: modelData.status
