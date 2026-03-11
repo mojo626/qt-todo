@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
 
 	qmlRegisterType<CaldavClient>("CaldavClient", 1, 0, "CaldavClient");
 
-	QQuickStyle::setStyle("Imagine");
+	QQuickStyle::setStyle("FluentWinUI3");
     QQmlApplicationEngine engine;
 	
 	QObject::connect(

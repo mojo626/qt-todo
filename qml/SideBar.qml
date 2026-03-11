@@ -3,9 +3,11 @@ import frontend
 import QtQuick.Controls 2.1
 import QtQuick.Layouts
 import CaldavClient
+import QtQuick.Controls.FluentWinUI3
 
 Rectangle {
     anchors.fill: parent
+    color: palette.window
 
     ListView {
         anchors.fill: parent

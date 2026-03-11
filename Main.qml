@@ -3,7 +3,7 @@ import frontend
 import QtQuick.Controls 2.1
 import QtQuick.Layouts
 import CaldavClient
-
+import QtQuick.Controls.FluentWinUI3
 
 
 ApplicationWindow {
@@ -11,6 +11,8 @@ ApplicationWindow {
     width: 800
     height: 600
     visible: true
+
+
 
     function changeCalendar(newCal) {
         mainView.calendar = newCal
