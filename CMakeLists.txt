@@ -25,13 +25,22 @@ target_include_directories(app
 		${CMAKE_SOURCE_DIR}/include
 )
 
+set_source_files_properties(qml/Icons.qml
+    PROPERTIES QT_QML_SINGLETON_TYPE TRUE)
+
 qt_add_qml_module(app
 	URI frontend 
 	RESOURCE_PREFIX /
 	QML_FILES
-	Main.qml
-	qml/SideBar.qml
-	qml/TodoList.qml
+		Main.qml
+		qml/SideBar.qml
+		qml/TodoList.qml
+		qml/MaterialDesign.js
+		qml/IconButton.qml
+		qml/Icons.qml
+	RESOURCES
+		fonts/MaterialIcons-Regular.ttf
+		fonts/MaterialDesignIconsDesktop.ttf
 )
 
 

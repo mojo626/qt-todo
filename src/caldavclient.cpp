@@ -30,7 +30,6 @@ QVariantList CaldavClient::getTodos() {
         item["uid"] = QString::fromStdString(todo.uid);
         item["percent_completed"] = todo.percent_completed;
         item["status"] = todo.status == caldav::TodoStatus::COMPLETED;
-        std::cout << todo.created << std::endl;
         item["created"] = QDateTime::fromString(QString::fromStdString(todo.created), "yyyyMMddThhmmssZ");
 
         list.append(item);
@@ -52,6 +51,8 @@ QVariantList CaldavClient::getCalendars() {
         item["color"] = QString::fromStdString(calendar.color);
 
         list.append(item);
+
+        std::cout << calendar.color << std::endl;
     }
 
     return list;

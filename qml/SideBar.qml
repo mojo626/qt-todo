@@ -13,11 +13,19 @@ Rectangle {
         model: client.getCalendars()
 
         delegate: RowLayout {
+
+            Text {  
+                font.family: materialIcons.name
+                font.pixelSize: 20
+                text: Icons.mdi("F0765")
+                color: modelData.color
+            }
+
             Label {
                 id: content
 
                 text: modelData.display_name
-                font.pixelSize: 30
+                font.pixelSize: 15
                 horizontalAlignment: Label.AlignHCenter
 
             }

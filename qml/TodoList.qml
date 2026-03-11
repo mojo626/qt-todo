@@ -7,14 +7,32 @@ import CaldavClient
 Rectangle {
     anchors.fill: parent
 
-    ListView {
+    ColumnLayout {
         anchors.fill: parent
-        spacing: 20
-        model: client.getTodos()
 
-        delegate: CheckBox {
-            checked: modelData.status
-            text: modelData.summary
+        RowLayout {
+            Layout.fillWidth: true
+            Layout.preferredHeight: 50
+            
+            IconButton {
+                iconCode: "F10AA"
+                onClicked: () => drawerVisible = !drawerVisible
+            }
+        }
+        
+
+        ListView {
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            spacing: 20
+            model: client.getTodos()
+
+            delegate: CheckBox {
+                checked: modelData.status
+                text: modelData.summary
+            }
         }
     }
+
+    
 }

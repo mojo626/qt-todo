@@ -4,6 +4,8 @@ import QtQuick.Controls 2.1
 import QtQuick.Layouts
 import CaldavClient
 
+
+
 ApplicationWindow {
     id: window
     width: 800
@@ -13,22 +15,28 @@ ApplicationWindow {
     // Variable counter
     property var counter: 0
 
+
     CaldavClient {
         id: client
     }
 
     FontLoader {
         id: iconFont
-        source: "../fonts/MaterialIcons-Regular.ttf"
+        source: "./fonts/MaterialIcons-Regular.ttf"
+    }
+
+    FontLoader {
+        id: materialIcons
+        source: "./fonts/MaterialDesignIconsDesktop.ttf"
     }
 
     Drawer {
-        id: drawer
+        id: sidePanelDrawer
         width: 200
         height: window.height
 
         modal: false
-        interactive: true
+        interactive: false
 
         visible: true
 
@@ -36,10 +44,10 @@ ApplicationWindow {
     }
 
 	TodoList {
-
+        property alias drawerVisible: sidePanelDrawer.visible
 
 		transform: Translate {
-            x: drawer.position * 200
+            x: sidePanelDrawer.position * 200
         }
 	}
     
