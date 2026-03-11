@@ -12,14 +12,17 @@ Rectangle {
         spacing: 20
         model: client.getCalendars()
 
-        delegate: Label {
-            id: content
+        delegate: RowLayout {
+            Label {
+                id: content
 
-            text: modelData.display_name
-            font.pixelSize: 30
-            horizontalAlignment: Label.AlignHCenter
+                text: modelData.display_name
+                font.pixelSize: 30
+                horizontalAlignment: Label.AlignHCenter
 
+            }
         }
+        
     }
    
     

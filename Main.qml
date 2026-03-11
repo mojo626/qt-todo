@@ -17,6 +17,11 @@ ApplicationWindow {
         id: client
     }
 
+    FontLoader {
+        id: iconFont
+        source: "../fonts/MaterialIcons-Regular.ttf"
+    }
+
     Drawer {
         id: drawer
         width: 200
