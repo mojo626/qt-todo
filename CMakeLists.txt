@@ -35,11 +35,9 @@ qt_add_qml_module(app
 		Main.qml
 		qml/SideBar.qml
 		qml/TodoList.qml
-		qml/MaterialDesign.js
 		qml/IconButton.qml
 		qml/Icons.qml
 	RESOURCES
-		fonts/MaterialIcons-Regular.ttf
 		fonts/MaterialDesignIconsDesktop.ttf
 )
 
