@@ -51,5 +51,6 @@ ApplicationWindow {
             x: sidePanelDrawer.position * 200
         }
 	}
+
     
 }
