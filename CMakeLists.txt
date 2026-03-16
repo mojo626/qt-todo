@@ -15,7 +15,9 @@ set(QT_QML_GENERATE_QMLLS_INI ON)
 qt_add_executable(app 
 	src/main.cpp 
 	src/caldavclient.cpp 
+	src/calendarutil.cpp
 	include/caldavclient.h
+	include/calendarutil.h
 )
 
 qt_policy(SET QTP0004 NEW)

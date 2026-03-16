@@ -3,6 +3,7 @@ import frontend
 import QtQuick.Controls 2.1
 import QtQuick.Layouts
 import CaldavClient
+import CalendarUtil
 import QtQuick.Controls.FluentWinUI3
 
 Rectangle {
@@ -18,6 +19,7 @@ Rectangle {
 
             IconButton {
                 iconCode: "F0349"
+                onClicked: calendarUtil.testing()
             }
 
             Item {

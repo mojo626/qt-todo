@@ -3,6 +3,7 @@ import frontend
 import QtQuick.Controls 2.1
 import QtQuick.Layouts
 import CaldavClient
+import CalendarUtil
 import QtQuick.Controls.FluentWinUI3
 
 
@@ -21,6 +22,10 @@ ApplicationWindow {
 
     CaldavClient {
         id: client
+    }
+
+    CalendarUtil {
+        id: calendarUtil
     }
 
 

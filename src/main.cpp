@@ -11,6 +11,7 @@
 #include "caldavclient.h"
 #include "caldav/todo.h"
 #include "dotenv.h"
+#include "calendarutil.h"
 
 int main(int argc, char *argv[])
 {
@@ -37,6 +38,7 @@ int main(int argc, char *argv[])
 
 
 	qmlRegisterType<CaldavClient>("CaldavClient", 1, 0, "CaldavClient");
+	qmlRegisterType<CalendarUtil>("CalendarUtil", 1, 0, "CalendarUtil");
 
     QQmlApplicationEngine engine;
 	
