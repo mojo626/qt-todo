@@ -17,28 +17,47 @@ Rectangle {
     ColumnLayout {
         anchors.fill: parent
 
-        RowLayout {
+        Rectangle {
+            color: palette.window
+
             Layout.fillWidth: true
             Layout.preferredHeight: 50
-            
-            IconButton {
-                iconCode: "F10AA"
-                onClicked: () => drawerVisible = !drawerVisible
+
+            z: 1
+
+            RowLayout {
+                anchors.fill: parent
+                anchors.margins: 10
+                
+                IconButton {
+                    iconCode: "F10AA"
+                    onClicked: () => drawerVisible = !drawerVisible
+                }
+            }
+        }
+
+        
+        
+        Rectangle {
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+
+            color: palette.base
+
+            ListView {
+                anchors.fill: parent
+                anchors.margins: 10
+                
+                spacing: 20
+                model: client.getTodos(mainView.calendar)
+
+                delegate: CheckBox {
+                    checked: modelData.status
+                    text: modelData.summary
+                }
             }
         }
         
-
-        ListView {
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-            spacing: 20
-            model: client.getTodos(mainView.calendar)
-
-            delegate: CheckBox {
-                checked: modelData.status
-                text: modelData.summary
-            }
-        }
     }
 
     
