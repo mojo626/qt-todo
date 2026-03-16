@@ -7,7 +7,7 @@ import QtQuick.Controls.FluentWinUI3
 
 Rectangle {
     anchors.fill: parent
-    color: palette.light
+    color: palette.window
 
     ColumnLayout {
         anchors.fill: parent

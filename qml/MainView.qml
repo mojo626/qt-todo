@@ -8,7 +8,7 @@ import QtQuick.Controls.FluentWinUI3
 Rectangle {
     id: mainView
 
-    color: palette.window
+    color: palette.base
 
     anchors.fill: parent
 
