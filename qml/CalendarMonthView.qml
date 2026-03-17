@@ -59,6 +59,8 @@ Rectangle {
     //     }
         
     // }
+    property var events: client.getEvents(0)
+    
 
     ListView {
         id: weekList
@@ -116,6 +118,20 @@ Rectangle {
                             color: palette.text
 
 
+                        }
+
+                        Label {
+                            property var test: "hi"
+
+                            text: test
+
+                            Component.onCompleted: {
+                                for (var i = 0; i < events.length; i++) {
+                                    if (events[i].dtstart.getDate() == dayDate.getDate() && events[i].dtstart.getYear() == dayDate.getYear() && events[i].dtstart.getMonth() == dayDate.getMonth()) {
+                                        test = events[i].summary;
+                                    }
+                                }
+                            }
                         }
 
                         Item {
