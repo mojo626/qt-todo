@@ -8,9 +8,6 @@ Button {
 
     property string iconCode
 
-    Layout.preferredWidth: 30
-    Layout.preferredHeight: 30
-
     flat: true
 
     contentItem: Label {

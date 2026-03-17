@@ -17,6 +17,9 @@ Rectangle {
             Layout.preferredHeight: 50
 
             IconButton {
+                Layout.preferredWidth: 30
+                Layout.preferredHeight: 30
+
                 iconCode: "F0349"
                 onClicked: calendarUtil.getListOfWeeks()
             }
@@ -26,6 +29,9 @@ Rectangle {
             }
 
             IconButton {
+                Layout.preferredWidth: 30
+                Layout.preferredHeight: 30
+
                 iconCode: "F0493"
             }
         }

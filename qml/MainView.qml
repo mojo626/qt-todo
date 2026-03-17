@@ -29,18 +29,50 @@ Rectangle {
                 anchors.margins: 10
                 
                 IconButton {
+                    Layout.preferredWidth: 30
+                    Layout.preferredHeight: 30
+
+                    Layout.alignment: Qt.AlignVCenter
+
                     iconCode: "F10AA"
                     onClicked: () => drawerVisible = !drawerVisible
                 }
+
+                TabBar {
+                    id: bar
+                    
+
+                    Layout.alignment: Qt.AlignVCenter
+
+                    TabButton {
+                        text: qsTr("Month")
+                        width: 100
+                    }
+                    TabButton {
+                        text: qsTr("Todos")
+                        width: 100
+                    }
+                }
+                
             }
         }
 
-        
-        
-        CalendarMonthView {
+        StackLayout {
             Layout.fillWidth: true
             Layout.fillHeight: true
+
+            currentIndex: bar.currentIndex
+
+            CalendarMonthView {
+            
+            }
+
+            TodoView {
+
+            }
         }
+        
+        
         
     }
 
