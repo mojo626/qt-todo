@@ -1,4 +1,5 @@
 import QtQuick
+import QtQml
 import frontend
 import QtQuick.Controls 2.1
 import QtQuick.Layouts
@@ -12,51 +13,120 @@ Rectangle {
 
     property int calendar: 0
 
-    MonthGrid {
-        id: control
+    // MonthGrid {
+    //     id: control
+
+    //     anchors.fill: parent
+
+    //     month: Calendar.March
+    //     year: 2026
+    //     locale: Qt.locale("en_US")
+
+    //     spacing: 0
+        
+    //     delegate: Rectangle {
+    //         border.width: 0.5
+    //         border.color: palette.button
+
+    //         color: palette.base
+
+    //         ColumnLayout {
+    //             anchors.fill: parent
+
+    //             Text {
+    //                 Layout.fillWidth: true
+    //                 Layout.preferredHeight: 10
+
+    //                 Layout.margins: 5
+
+    //                 horizontalAlignment: Text.AlignRight
+                    
+    //                 opacity: model.month === control.month ? 1 : 0.5
+    //                 text: model.day
+    //                 color: palette.text
+
+
+    //             }
+
+    //             Item {
+    //                 Layout.fillHeight: true
+    //                 Layout.fillWidth: true
+    //             }
+
+    //         }
+
+            
+    //     }
+        
+    // }
+
+    ListView {
+        id: weekList
 
         anchors.fill: parent
 
-        month: Calendar.March
-        year: 2026
-        locale: Qt.locale("en_US")
+        model: weekModel
 
-        spacing: 0
-        
-        delegate: Rectangle {
-            border.width: 0.5
-            border.color: palette.button
+        orientation: ListView.Vertical
 
-            color: palette.base
+        snapMode: ListView.SnapOneItem
+        highlightRangeMode: ListView.StrictlyEnforceRange
 
-            ColumnLayout {
-                anchors.fill: parent
+        delegate: Row {
+            id: weekRow
 
-                Text {
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: 10
+            property var weekStart: model.startDate
 
-                    Layout.margins: 5
+            height: 120
+            anchors.left: parent.left
+            anchors.right: parent.right
+            spacing: 0
 
-                    horizontalAlignment: Text.AlignRight
-                    
-                    opacity: model.month === control.month ? 1 : 0.5
-                    text: model.day
-                    color: palette.text
+            Repeater {
+                model: 7
+
+                Rectangle {
+                    width: weekRow.width / 7
+                    height: weekRow.height
+
+                    color: palette.base
+
+                    border.width: 0.5
+                    border.color: palette.button
+
+                    property date dayDate: new Date(
+                        weekRow.weekStart.getFullYear(),
+                        weekRow.weekStart.getMonth(),
+                        weekRow.weekStart.getDate() + index
+                    )
+
+                    ColumnLayout {
+                        anchors.fill: parent
+
+                        Text {
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: 10
+
+                            Layout.margins: 5
+
+                            horizontalAlignment: Text.AlignLeft
+                            
+                            //opacity: model.month === control.month ? 1 : 0.5
+                            text: dayDate.getDate() + (dayDate.getDate() == 1 ? "  " + Qt.formatDate(dayDate, "MMMM") : "")
+                            color: palette.text
 
 
+                        }
+
+                        Item {
+                            Layout.fillHeight: true
+                            Layout.fillWidth: true
+                        }
+
+                    }
                 }
-
-                Item {
-                    Layout.fillHeight: true
-                    Layout.fillWidth: true
-                }
-
             }
-
-            
         }
-        
     }
 
     

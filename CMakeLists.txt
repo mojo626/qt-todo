@@ -16,8 +16,10 @@ qt_add_executable(app
 	src/main.cpp 
 	src/caldavclient.cpp 
 	src/calendarutil.cpp
+	src/weekmodel.cpp
 	include/caldavclient.h
 	include/calendarutil.h
+	include/weekmodel.h
 )
 
 qt_policy(SET QTP0004 NEW)

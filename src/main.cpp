@@ -12,6 +12,7 @@
 #include "caldav/todo.h"
 #include "dotenv.h"
 #include "calendarutil.h"
+#include "weekmodel.h"
 
 int main(int argc, char *argv[])
 {
@@ -37,10 +38,18 @@ int main(int argc, char *argv[])
 	app.setPalette(darkPalette);
 
 
+
+
 	qmlRegisterType<CaldavClient>("CaldavClient", 1, 0, "CaldavClient");
 	qmlRegisterType<CalendarUtil>("CalendarUtil", 1, 0, "CalendarUtil");
 
     QQmlApplicationEngine engine;
+
+	WeekModel weekModel;
+
+	weekModel.generateWeeks(QDate::currentDate());
+
+	engine.rootContext()->setContextProperty("weekModel", &weekModel);
 	
 	QObject::connect(
 			&engine,
