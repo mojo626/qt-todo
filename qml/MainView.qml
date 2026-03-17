@@ -10,7 +10,6 @@ Rectangle {
 
     color: palette.base
 
-    anchors.fill: parent
 
     property int calendar: 0
 
@@ -38,24 +37,9 @@ Rectangle {
 
         
         
-        Rectangle {
+        CalendarMonthView {
             Layout.fillWidth: true
             Layout.fillHeight: true
-
-            color: palette.base
-
-            ListView {
-                anchors.fill: parent
-                anchors.margins: 10
-                
-                spacing: 20
-                model: client.getTodos(mainView.calendar)
-
-                delegate: CheckBox {
-                    checked: modelData.status
-                    text: modelData.summary
-                }
-            }
         }
         
     }

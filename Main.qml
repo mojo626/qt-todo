@@ -34,28 +34,39 @@ ApplicationWindow {
         source: "./fonts/MaterialDesignIconsDesktop.ttf"
     }
 
-    Drawer {
-        id: sidePanelDrawer
-        width: 200
-        height: window.height
+    RowLayout {
+        anchors.fill: parent
 
-        modal: false
-        interactive: false
+        Rectangle {
+            id: sidePanelDrawer
 
-        visible: true
+            property bool isVisible: true
+            
+            Layout.preferredWidth: isVisible ? 200 : 0
+            Layout.fillHeight: true
 
-        SideBar {}
+            Behavior on Layout.preferredWidth {
+                NumberAnimation { duration: 100 }
+            }
+            
+
+            SideBar {
+                anchors.fill: parent
+            }
+        }
+
+
+        MainView {
+            id: mainView
+
+            property alias drawerVisible: sidePanelDrawer.isVisible
+
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+        }
     }
 
-	MainView {
-        id: mainView
-
-        property alias drawerVisible: sidePanelDrawer.visible
-
-		transform: Translate {
-            x: sidePanelDrawer.position * 200
-        }
-	}
+    
 
     
 }

@@ -10,29 +10,24 @@ Rectangle {
 
     color: palette.base
 
-    anchors.fill: parent
-
     property int calendar: 0
 
-    ListView {
+    MonthGrid {
+        id: control
+
         anchors.fill: parent
 
-        Rectangle {
-            color: palette.window
-
-            Layout.fillWidth: true
-            Layout.preferredHeight: 50
-
-            z: 1
-
-            RowLayout {
-                anchors.fill: parent
-                anchors.margins: 10
-                
-                
-            }
-        }
+        month: Calendar.December
+        year: 2015
+        locale: Qt.locale("en_US")
         
+        delegate: Text {
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            opacity: model.month === control.month ? 1 : 0
+            text: model.day
+            color: palette.text
+        }
     }
 
     

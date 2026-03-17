@@ -7,7 +7,6 @@ import CalendarUtil
 import QtQuick.Controls.FluentWinUI3
 
 Rectangle {
-    anchors.fill: parent
     color: palette.window
 
     ColumnLayout {
@@ -19,7 +18,7 @@ Rectangle {
 
             IconButton {
                 iconCode: "F0349"
-                onClicked: calendarUtil.testing()
+                onClicked: calendarUtil.getListOfWeeks()
             }
 
             Item {

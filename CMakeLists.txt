@@ -30,6 +30,15 @@ target_include_directories(app
 set_source_files_properties(qml/Icons.qml
     PROPERTIES QT_QML_SINGLETON_TYPE TRUE)
 
+
+FetchContent_Declare(
+  date_src
+  GIT_REPOSITORY https://github.com/HowardHinnant/date.git
+  GIT_TAG v3.0.4
+)
+
+FetchContent_MakeAvailable(date_src)
+
 qt_add_qml_module(app
 	URI frontend 
 	RESOURCE_PREFIX /
@@ -39,6 +48,8 @@ qt_add_qml_module(app
 		qml/MainView.qml
 		qml/IconButton.qml
 		qml/Icons.qml
+		qml/CalendarMonthView.qml
+		qml/TodoView.qml
 	RESOURCES
 		fonts/MaterialDesignIconsDesktop.ttf
 )
@@ -50,4 +61,10 @@ target_link_libraries(app
 		Qt6::Quick
 		Qt6::QuickControls2
 		caldav
+		date::date
+)
+
+target_include_directories(caldav
+    PUBLIC
+        ${date_src_SOURCE_DIR}/include
 )
