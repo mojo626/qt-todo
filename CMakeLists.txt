@@ -17,9 +17,11 @@ qt_add_executable(app
 	src/caldavclient.cpp 
 	src/calendarutil.cpp
 	src/weekmodel.cpp
+	src/databasemanager.cpp
 	include/caldavclient.h
 	include/calendarutil.h
 	include/weekmodel.h
+	include/databasemanager.h
 )
 
 qt_policy(SET QTP0004 NEW)
@@ -40,6 +42,8 @@ FetchContent_Declare(
 )
 
 FetchContent_MakeAvailable(date_src)
+
+find_package(Qt6 REQUIRED COMPONENTS Sql)
 
 qt_add_qml_module(app
 	URI frontend 
@@ -62,6 +66,7 @@ target_link_libraries(app
 		Qt6::Core
 		Qt6::Quick
 		Qt6::QuickControls2
+		Qt6::Sql
 		caldav
 		date::date
 )

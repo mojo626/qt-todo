@@ -10,6 +10,7 @@
 #include <vector>
 #include "caldavclient.h"
 #include "caldav/todo.h"
+#include "databasemanager.h"
 #include "dotenv.h"
 #include "calendarutil.h"
 #include "weekmodel.h"
@@ -50,6 +51,11 @@ int main(int argc, char *argv[])
 	weekModel.generateWeeks(QDate::currentDate());
 
 	engine.rootContext()->setContextProperty("weekModel", &weekModel);
+
+	auto& db = DatabaseManager::instance();
+
+	db.open("calendar.db");
+	db.init();
 	
 	QObject::connect(
 			&engine,
