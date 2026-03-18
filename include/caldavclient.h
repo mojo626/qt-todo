@@ -15,7 +15,7 @@ class CaldavClient : public QObject {
     public:
         explicit CaldavClient(QObject *parent = 0);
         Q_INVOKABLE QVariantList getTodos(int cal_id);
-        Q_INVOKABLE QVariantList getEvents(int cal_id);
+        Q_INVOKABLE void updateEvents(int cal_id);
         Q_INVOKABLE QVariantList getCalendars();
     
     private:

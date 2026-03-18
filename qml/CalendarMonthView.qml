@@ -82,21 +82,10 @@ Rectangle {
 
                             text: test
 
-                            Connections {
-
-                                target: monthView
-
-                                function onEventlistChanged() {
-                                    console.log("hi");
-                                    // for (var cal = 0; cal < client.getCalendars().length; cal++) {
-                                    //     var events = client.getEvents(cal);
-
-                                    //     for (var i = 0; i < events.length; i++) {
-                                    //         if (events[i].dtstart.getDate() == dayDate.getDate() && events[i].dtstart.getYear() == dayDate.getYear() && events[i].dtstart.getMonth() == dayDate.getMonth()) {
-                                    //             test = events[i].summary;
-                                    //         }
-                                    //     }
-                                    // }
+                            Component.onCompleted: {
+                                var events = calendarUtil.getEventsInRange(dayDate, dayDate);
+                                if (events.length != 0) {
+                                    test = events[0].summary;
                                 }
                             }
 

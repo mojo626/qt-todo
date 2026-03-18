@@ -10,5 +10,5 @@ class CalendarUtil : public QObject {
 
     Q_OBJECT
     public:
-        Q_INVOKABLE void getListOfWeeks();
+        Q_INVOKABLE QList<QVariantMap> getEventsInRange(QDateTime start, QDateTime end);
 };
