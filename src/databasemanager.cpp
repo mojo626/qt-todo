@@ -9,6 +9,7 @@
 #include <qnamespace.h>
 #include <qsqldatabase.h>
 #include <qsqlquery.h>
+#include <iostream>
 
 DatabaseManager& DatabaseManager::instance() {
     static DatabaseManager instance;
@@ -20,7 +21,7 @@ bool DatabaseManager::open(const QString& path) {
     db.setDatabaseName(path);
 
     if (!db.open()) {
-        qDebug() << "DB open error: " << db.lastError();
+        std::cout << "DB open error: " << db.lastError().text().toStdString() << std::endl;
         return false;
     }
 
@@ -65,10 +66,10 @@ bool DatabaseManager::upsertEvent(
         INSERT INTO events (uid, calendar_id, etag, summary, start_time, end_time, timezone)
         VALUES (?, ?, ?, ?, ?, ?, ?)
         ON CONFLICT(uid, calendar_id) DO UPDATE SET
-            etag=excluded.etag
-            summary=excluded.summary
-            start_time=excluded.start_time
-            end_time=excluded.end_time
+            etag=excluded.etag,
+            summary=excluded.summary,
+            start_time=excluded.start_time,
+            end_time=excluded.end_time,
             timezone=excluded.timezone    
     )");
 
@@ -81,7 +82,7 @@ bool DatabaseManager::upsertEvent(
     query.addBindValue(timezone);
 
     if (!query.exec()) {
-        qDebug() << "Upsert error: " << query.lastError();
+        std::cout << "Upsert error: " << db.lastError().text().toStdString() << std::endl;
         return false;
     }
 
@@ -103,7 +104,7 @@ QList<QVariantMap> DatabaseManager::getEventsInRange(QDateTime start, QDateTime 
     query.addBindValue(end.toUTC().toString(Qt::ISODate));
 
     if (!query.exec()) {
-        qDebug() << "Query error: " << query.lastError();
+        std::cout << "Query error: " << db.lastError().text().toStdString() << std::endl;
         return results;
     }
 

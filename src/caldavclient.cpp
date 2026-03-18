@@ -1,10 +1,13 @@
 #include "caldavclient.h"
 #include <QDebug>
 #include "caldav/event.h"
+#include "databasemanager.h"
 #include "dotenv.h"
 #include "caldav/calendar.h"
 #include "caldav/client.h"
 #include "caldav/todo.h"
+#include "ical.h"
+#include "icaltime.h"
 #include <QtCore/qcontainerfwd.h>
 #include <qtimezone.h>
 #include <vector>
@@ -13,7 +16,7 @@
 #include <QDateTime>
 
 CaldavClient::CaldavClient(QObject *parent) : QObject(parent), env("../.env"), client(env.get("CALENDAR_URL"),"ben:" + env.get("PASSWORD")) {
-
+    getEvents(0);
 }
 
 QDateTime CaldavClient::toQDateTime(icaltimetype t) {
@@ -82,9 +85,26 @@ QVariantList CaldavClient::getEvents(int cal_id) {
 
     QVariantList list;
 
+    auto& db = DatabaseManager::instance();
+
     for (const auto& event : events) {
         QVariantMap item;
-        
+
+        QDateTime dtstart;
+        dtstart.setSecsSinceEpoch(icaltime_as_timet(icaltime_convert_to_zone(event.dtstart, icaltimezone_get_utc_timezone())));
+
+        QDateTime dtend;
+        dtend.setSecsSinceEpoch(icaltime_as_timet(icaltime_convert_to_zone(event.dtend, icaltimezone_get_utc_timezone())));
+
+        std::cout << db.upsertEvent(
+            QString::fromStdString(event.uid), 
+            QString::fromStdString(std::to_string(cal_id)), 
+            QString::fromStdString(event.etag), 
+            QString::fromStdString(event.summary), 
+            dtstart,
+            dtend, 
+            QString::fromStdString("UTC")
+        ) << std::endl;
 
         item["dtstart"] = toQDateTime(event.dtstart);
         item["dtend"] = toQDateTime(event.dtend);
