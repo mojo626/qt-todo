@@ -19,5 +19,5 @@ class WeekModel : public QAbstractListModel {
         QVector<QDate> weeks;
     
     protected:
-        QHash<int, QByteArray> roleNames() const;
+        QHash<int, QByteArray> roleNames() const override;
 };
