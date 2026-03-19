@@ -32,10 +32,6 @@ Rectangle {
 
             property var weekStart: model.startDate
 
-            Component.onCompleted: {
-                console.log(parent.height);
-            }
-
             height: mainView.height / 6
             anchors.left: parent.left
             anchors.right: parent.right
@@ -60,7 +56,11 @@ Rectangle {
                     )
 
                     ColumnLayout {
+                        id: day_column
+
                         anchors.fill: parent
+
+                        property var events
 
                         Text {
                             Layout.fillWidth: true
@@ -77,25 +77,60 @@ Rectangle {
 
                         }
 
-                        Label {
-                            property var test: "hi"
+                        Component.onCompleted: {
+                            var endOfDay = dayDate;
+                            endOfDay.setHours(23);
+                            endOfDay.setMinutes(59);
+                            day_column.events = calendarUtil.getEventsInRange(dayDate, endOfDay);
+                            
+                        } 
 
-                            text: test
+                        ListView {
+                            Layout.fillWidth: true
+                            Layout.fillHeight: true
+                            spacing: 20
+                            model: day_column.events
 
-                            Component.onCompleted: {
-                                var events = calendarUtil.getEventsInRange(dayDate, dayDate);
-                                if (events.length != 0) {
-                                    test = events[0].summary;
+                            interactive: false
+
+                            delegate: RowLayout {
+                                id: eventLayout
+
+                                property var test: modelData.summary
+
+                                anchors.left: parent.left
+                                anchors.right: parent.right
+                                height: 20
+                            
+
+                                Rectangle {
+                                    color: "#FF0000"
+                                    Layout.fillHeight: true
+                                    Layout.preferredWidth: 10
+                                }
+
+                                Rectangle {
+                                    id: eventRect
+
+                                    color: palette.base
+
+                                    Layout.fillHeight: true
+                                    Layout.fillWidth: true
+
+                                    Label {
+                                        
+
+                                        text: eventLayout.test
+
+                                        
+                                    }
                                 }
                             }
-
+                            
                             
                         }
 
-                        Item {
-                            Layout.fillHeight: true
-                            Layout.fillWidth: true
-                        }
+                        
 
                     }
                 }
