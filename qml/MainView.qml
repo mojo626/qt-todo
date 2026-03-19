@@ -27,6 +27,7 @@ Rectangle {
             RowLayout {
                 anchors.fill: parent
                 anchors.margins: 10
+                anchors.bottomMargin: 0
                 
                 IconButton {
                     Layout.preferredWidth: 30
@@ -58,6 +59,8 @@ Rectangle {
         }
 
         StackLayout {
+            id: stackLayout
+
             Layout.fillWidth: true
             Layout.fillHeight: true
 
