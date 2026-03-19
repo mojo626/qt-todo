@@ -23,12 +23,37 @@ Rectangle {
 
         orientation: ListView.Vertical
 
+        interactive: false
+
         snapMode: ListView.SnapOneItem
         //highlightRangeMode: ListView.StrictlyEnforceRange
 
         onCountChanged: {
             if (count > 0) {
-                positionViewAtIndex(Math.floor(count / 2), ListView.Contain)
+                positionViewAtIndex(Math.floor(count / 2), ListView.Contain);
+                weekList.currentIndex = Math.floor(count / 2);
+            }
+        }
+
+        MouseArea {
+            acceptedButtons: Qt.NoButton // we handle manually
+
+            anchors.fill: parent
+
+            onWheel: (event) => {
+                if (event.angleDelta.y > 0) {
+                    weekList.currentIndex = Math.max(0, weekList.currentIndex - 1)
+                } else if (event.angleDelta.y < 0) {
+                    weekList.currentIndex = Math.min(weekList.count - 1, weekList.currentIndex + 1)
+                }
+
+                weekList.positionViewAtIndex(
+                    weekList.currentIndex,
+                    ListView.Contain
+                )
+                console.log(event.angleDelta.y);
+
+                event.accepted = true
             }
         }
 

@@ -19,6 +19,7 @@ Rectangle {
         delegate: CheckBox {
             checked: modelData.status
             text: modelData.summary
+            visible: !modelData.status
         }
     }
 }
