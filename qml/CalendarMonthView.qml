@@ -126,7 +126,6 @@ Rectangle {
                                 eventsListView.shownEvents = Math.min(maxEvents, totalEvents)
                                 eventsListView.extraEvents = Math.max(0, totalEvents - maxEvents)
 
-
                                 
                             }
 
@@ -144,7 +143,8 @@ Rectangle {
 
                                 property int indexOfThisDelegate: index
 
-                                property var test: modelData.summary
+                                property var event_summary: modelData.summary
+                                property var calendar_id: modelData.calendar_id
 
                                 visible: indexOfThisDelegate < eventsListView.shownEvents
 
@@ -155,7 +155,7 @@ Rectangle {
                             
 
                                 Rectangle {
-                                    color: "#FF0000"
+                                    color: calendarUtil.getCalendar(eventLayout.calendar_id).color.substring(0, 7)
                                     Layout.fillHeight: true
                                     Layout.preferredWidth: 10
                                     radius: 5
@@ -164,13 +164,13 @@ Rectangle {
                                 Rectangle {
                                     id: eventRect
 
-                                    color: palette.window
+                                    color: palette.base
 
                                     Layout.fillHeight: true
                                     Layout.fillWidth: true
 
                                     Label {
-                                        text: eventLayout.test
+                                        text: eventLayout.event_summary
 
                                         width: parent.width
 

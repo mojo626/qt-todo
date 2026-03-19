@@ -9,3 +9,7 @@
 QList<QVariantMap> CalendarUtil::getEventsInRange(QDateTime start, QDateTime end) {
     return DatabaseManager::instance().getEventsInRange(start, end);
 }
+
+QVariantMap CalendarUtil::getCalendar(int calendar_id) {
+    return DatabaseManager::instance().getCalendar(calendar_id);
+}

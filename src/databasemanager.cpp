@@ -10,6 +10,7 @@
 #include <qsqldatabase.h>
 #include <qsqlquery.h>
 #include <iostream>
+#include <string>
 
 DatabaseManager& DatabaseManager::instance() {
     static DatabaseManager instance;
@@ -42,6 +43,17 @@ void DatabaseManager::init() {
             end_time TEXT,
             timezone TEXT,
             UNIQUE(uid, calendar_id)
+        )
+    )");
+
+    query.exec(R"(
+        CREATE TABLE IF NOT EXISTS calendars (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            display_name TEXT,
+            calendar_id TEXT,
+            ctag TEXT,
+            color TEXT,
+            UNIQUE(calendar_id)
         )
     )");
 
@@ -89,13 +101,43 @@ bool DatabaseManager::upsertEvent(
     return true;
 }
 
+bool DatabaseManager::upsertCalendar(
+    const QString& display_name,
+    const QString& calendar_id,
+    const QString& ctag,
+    const QString& color
+) {
+    QSqlQuery query;
+
+    query.prepare(R"(
+        INSERT INTO calendars (display_name, calendar_id, ctag, color)
+        VALUES (?, ?, ?, ?)
+        ON CONFLICT(calendar_id) DO UPDATE SET
+            display_name=excluded.display_name,
+            ctag=excluded.ctag,
+            color=excluded.color   
+    )");
+
+    query.addBindValue(display_name);
+    query.addBindValue(calendar_id);
+    query.addBindValue(ctag);
+    query.addBindValue(color);
+
+    if (!query.exec()) {
+        std::cout << "Upsert error: " << db.lastError().text().toStdString() << std::endl;
+        return false;
+    }
+
+    return true;
+}
+
 QList<QVariantMap> DatabaseManager::getEventsInRange(QDateTime start, QDateTime end) {
     QList<QVariantMap> results;
 
     QSqlQuery query;
 
     query.prepare(R"(
-        SELECT uid, summary, start_time, end_time, timezone
+        SELECT uid, summary, start_time, end_time, timezone, calendar_id
         FROM events
         WHERE end_time >= ? AND start_time <= ?    
     )");
@@ -116,9 +158,38 @@ QList<QVariantMap> DatabaseManager::getEventsInRange(QDateTime start, QDateTime 
         event["start"] = QDateTime::fromString(query.value(2).toString(), Qt::ISODate);
         event["end"] = QDateTime::fromString(query.value(3).toString(), Qt::ISODate);
         event["timezone"] = query.value(4);
+        event["calendar_id"] = query.value(5);
 
         results.append(event);
     }
 
     return results;
+}
+
+QVariantMap DatabaseManager::getCalendar(int calendar_id) {
+    QVariantMap result; 
+
+    QSqlQuery query;
+
+    query.prepare(R"(
+        SELECT display_name, calendar_id, ctag, color
+        FROM calendars
+        WHERE calendar_id == ? 
+    )");
+
+    query.addBindValue(QString::fromStdString(std::to_string(calendar_id)));
+
+    if (!query.exec()) {
+        std::cout << "Query error: " << db.lastError().text().toStdString() << std::endl;
+        return result;
+    }
+
+    while (query.next()) {
+        result["display_name"] = query.value(0);
+        result["calendar_id"] = query.value(1);
+        result["ctag"] = query.value(2);
+        result["color"] = query.value(3);
+    }
+
+    return result;
 }

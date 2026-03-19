@@ -10,6 +10,7 @@
 #include "icaltime.h"
 #include <QtCore/qcontainerfwd.h>
 #include <qtimezone.h>
+#include <string>
 #include <vector>
 #include <QVariantList>
 #include <QVariantMap>
@@ -17,6 +18,8 @@
 
 CaldavClient::CaldavClient(QObject *parent) : QObject(parent), env("../.env"), client(env.get("CALENDAR_URL"),"ben:" + env.get("PASSWORD")) {
     QVariantList calendars = getCalendars();
+
+    updateCalendars();
 
     for (int i = 0; i < calendars.length(); i++) {
         updateEvents(i);
@@ -109,6 +112,21 @@ void CaldavClient::updateEvents(int cal_id) {
     }
 }
 
+void CaldavClient::updateCalendars() {
+    std::vector<caldav::Calendar> calendars = client.GetCalendars();
+
+    auto& db = DatabaseManager::instance();
+
+    for (int i = 0; i < calendars.size(); i++) {
+        db.upsertCalendar(
+            QString::fromStdString(calendars[i].display_name), 
+            QString::fromStdString(std::to_string(i)), 
+            QString::fromStdString(calendars[i].ctag), 
+            QString::fromStdString(calendars[i].color)
+        );
+    }
+}
+
 QVariantList CaldavClient::getCalendars() {
 
     std::vector<caldav::Calendar> calendars = client.GetCalendars();
@@ -124,7 +142,6 @@ QVariantList CaldavClient::getCalendars() {
 
         list.append(item);
 
-        std::cout << calendar.color << std::endl;
     }
 
     return list;

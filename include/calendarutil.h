@@ -11,4 +11,5 @@ class CalendarUtil : public QObject {
     Q_OBJECT
     public:
         Q_INVOKABLE QList<QVariantMap> getEventsInRange(QDateTime start, QDateTime end);
+        Q_INVOKABLE QVariantMap getCalendar(int calendar_id);
 };

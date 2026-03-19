@@ -2,6 +2,7 @@
 
 #include <QSqlDatabase>
 #include <QDateTime>
+#include <qcontainerfwd.h>
 
 
 class DatabaseManager {
@@ -21,7 +22,15 @@ class DatabaseManager {
             const QString& timezone
         );
 
+        bool upsertCalendar(
+            const QString& display_name,
+            const QString& calendar_id,
+            const QString& ctag,
+            const QString& color
+        );
+
         QList<QVariantMap> getEventsInRange(QDateTime start, QDateTime end);
+        QVariantMap getCalendar(int calendar_id);
 
     private:
         DatabaseManager() = default;
