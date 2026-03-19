@@ -17,6 +17,8 @@
 
 int main(int argc, char *argv[])
 {
+	qputenv("QT_LOGGING_RULES",
+            "*.debug=false;qml.debug=true;*.warning=true;*.critical=true"); //just for testing
 
 	QQuickStyle::setStyle("FluentWinUI3");
 

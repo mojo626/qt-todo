@@ -13,7 +13,7 @@ ApplicationWindow {
     height: 600
     visible: true
 
-
+    
 
     function changeCalendar(newCal) {
         mainView.calendar = newCal
