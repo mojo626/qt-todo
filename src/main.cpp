@@ -11,6 +11,7 @@
 #include "caldavclient.h"
 #include "caldav/todo.h"
 #include "databasemanager.h"
+#include "daymodel.h"
 #include "dotenv.h"
 #include "calendarutil.h"
 #include "weekmodel.h"
@@ -53,6 +54,12 @@ int main(int argc, char *argv[])
 	weekModel.generateWeeks(QDate::currentDate());
 
 	engine.rootContext()->setContextProperty("weekModel", &weekModel);
+
+	DayModel dayModel;
+
+	dayModel.generateDays(QDate::currentDate());
+
+	engine.rootContext()->setContextProperty("dayModel", &dayModel);
 
 	auto& db = DatabaseManager::instance();
 

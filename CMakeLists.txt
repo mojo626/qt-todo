@@ -18,10 +18,12 @@ qt_add_executable(app
 	src/calendarutil.cpp
 	src/weekmodel.cpp
 	src/databasemanager.cpp
+	src/daymodel.cpp
 	include/caldavclient.h
 	include/calendarutil.h
 	include/weekmodel.h
 	include/databasemanager.h
+	include/daymodel.h
 )
 
 qt_policy(SET QTP0004 NEW)
@@ -56,6 +58,7 @@ qt_add_qml_module(app
 		qml/Icons.qml
 		qml/CalendarMonthView.qml
 		qml/TodoView.qml
+		qml/CalendarWeekView.qml
 	RESOURCES
 		fonts/MaterialDesignIconsDesktop.ttf
 )

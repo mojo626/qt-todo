@@ -53,6 +53,10 @@ Rectangle {
                         text: qsTr("Todos")
                         width: 100
                     }
+                    TabButton {
+                        text: qsTr("Week")
+                        width: 100
+                    }
                 }
                 
             }
@@ -71,6 +75,10 @@ Rectangle {
             }
 
             TodoView {
+
+            }
+
+            CalendarWeekView {
 
             }
         }

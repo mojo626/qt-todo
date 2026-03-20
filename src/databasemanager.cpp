@@ -2,6 +2,8 @@
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QDebug>
+#include <QtCore/qdatetime.h>
+#include <QtCore/qtimezone.h>
 #include <qcontainerfwd.h>
 #include <qdatetime.h>
 #include <qlist.h>
@@ -135,6 +137,8 @@ QList<QVariantMap> DatabaseManager::getEventsInRange(QDateTime start, QDateTime 
     QList<QVariantMap> results;
 
     QSqlQuery query;
+
+    //std::cout << start.toTimeZone(start.timeZone()).toString(Qt::ISODate).toStdString() << std::endl;
 
     query.prepare(R"(
         SELECT uid, summary, start_time, end_time, timezone, calendar_id

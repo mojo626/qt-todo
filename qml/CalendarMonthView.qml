@@ -11,7 +11,6 @@ Rectangle {
 
     color: palette.base
 
-    property var eventlist: client.getCalendars().length
     
 
     ListView {
@@ -109,6 +108,10 @@ Rectangle {
 
                         }
 
+                        function convertTZ(date, tzString) {
+                            return new Date(date.toUTCString());  
+                        }
+
                         Component.onCompleted: {
                             var endOfDay = dayDate;
                             endOfDay.setHours(23);
@@ -163,48 +166,56 @@ Rectangle {
                                 updateShownEvents();
                             }
 
-                            delegate: RowLayout {
-                                id: eventLayout
-
-                                property int indexOfThisDelegate: index
-
-                                property var event_summary: modelData.summary
-                                property var calendar_id: modelData.calendar_id
-
-                                visible: indexOfThisDelegate < eventsListView.shownEvents
-
+                            delegate: Rectangle {
                                 anchors.left: parent.left
                                 anchors.right: parent.right
-                                anchors.margins: 5
+
                                 height: eventsListView.eventHeight
-                            
 
-                                Rectangle {
-                                    color: calendarUtil.getCalendar(eventLayout.calendar_id).color.substring(0, 7)
-                                    Layout.fillHeight: true
-                                    Layout.preferredWidth: 10
-                                    radius: 5
-                                }
+                                //color: calendarUtil.getCalendar(modelData.calendar_id).color.substring(0, 7)
+                                color: "transparent"
 
-                                Rectangle {
-                                    id: eventRect
+                                RowLayout {
+                                    id: eventLayout
 
-                                    color: palette.base
+                                    property int indexOfThisDelegate: index
 
-                                    Layout.fillHeight: true
-                                    Layout.fillWidth: true
+                                    property var event_summary: modelData.summary
+                                    property var calendar_id: modelData.calendar_id
 
-                                    Label {
-                                        text: eventLayout.event_summary
+                                    visible: indexOfThisDelegate < eventsListView.shownEvents
 
-                                        width: parent.width
-
-                                        elide: Text.ElideRight
-                                    }
-                                }
-
+                                    anchors.fill: parent
                                 
+
+                                    Rectangle {
+                                        color: calendarUtil.getCalendar(eventLayout.calendar_id).color.substring(0, 7)
+                                        Layout.fillHeight: true
+                                        Layout.preferredWidth: 10
+                                        radius: 5
+                                    }
+
+                                    Rectangle {
+                                        id: eventRect
+
+                                        color: "transparent"
+
+                                        Layout.fillHeight: true
+                                        Layout.fillWidth: true
+
+                                        Label {
+                                            text: eventLayout.event_summary
+
+                                            width: parent.width
+
+                                            elide: Text.ElideRight
+                                        }
+                                    }
+
+                                    
+                                }
                             }
+                            
                             
                             
                         }
