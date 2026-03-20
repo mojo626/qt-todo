@@ -31,7 +31,7 @@ Rectangle {
 
             onCountChanged: {
                 if (count > 0) {
-                    positionViewAtIndex(Math.floor(count / 2), ListView.Contain);
+                    positionViewAtIndex(Math.floor(count / 2), ListView.Center);
                     dayList.currentIndex = Math.floor(count / 2);
                 }
             }
