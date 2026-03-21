@@ -13,30 +13,31 @@ Rectangle {
 
     property var hourHeight: 200
 
-    Canvas {
-        anchors.fill: parent
-
-        property int hourHeight: 60
-
-        onPaint: {
-            var ctx = getContext("2d")
-            ctx.clearRect(0, 0, width, height)
-
-            ctx.strokeStyle = "#cccccc"
-            ctx.lineWidth = 1
-
-            for (var i = 0; i < 24; i++) {
-                var y = i * hourHeight
-
-                ctx.beginPath()
-                ctx.moveTo(0, y)
-                ctx.lineTo(width, y)
-                ctx.stroke()
-            }
-        }
-    }
+    
 
     Flickable {
+
+        Canvas {
+            anchors.fill: parent
+
+
+            onPaint: {
+                var ctx = getContext("2d")
+                ctx.clearRect(0, 0, width, height)
+
+                ctx.strokeStyle = palette.button
+                ctx.lineWidth = 1
+
+                for (var i = 0; i < 24; i++) {
+                    var y = i * weekView.hourHeight
+
+                    ctx.beginPath()
+                    ctx.moveTo(0, y)
+                    ctx.lineTo(width, y)
+                    ctx.stroke()
+                }
+            }
+        }
         
 
         id: verticalFlick
@@ -68,7 +69,7 @@ Rectangle {
             }
 
             delegate: Rectangle {
-                color: palette.base
+                color: "transparent"
 
                 width: dayList.width / 7
                 height: dayList.height
