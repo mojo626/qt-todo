@@ -7,19 +7,50 @@ import CaldavClient
 import QtQuick.Controls.FluentWinUI3
 
 Rectangle {
-    id: monthView
+    id: weekView
 
     color: palette.base
 
-    ScrollView {
+    property var hourHeight: 200
+
+    Canvas {
         anchors.fill: parent
+
+        property int hourHeight: 60
+
+        onPaint: {
+            var ctx = getContext("2d")
+            ctx.clearRect(0, 0, width, height)
+
+            ctx.strokeStyle = "#cccccc"
+            ctx.lineWidth = 1
+
+            for (var i = 0; i < 24; i++) {
+                var y = i * hourHeight
+
+                ctx.beginPath()
+                ctx.moveTo(0, y)
+                ctx.lineTo(width, y)
+                ctx.stroke()
+            }
+        }
+    }
+
+    Flickable {
+        
+
+        id: verticalFlick
+
+        anchors.fill: parent
+        contentHeight: 24 * weekView.hourHeight   // total day height
+        clip: true
 
         ListView {
             id: dayList
 
             anchors.left: parent.left
             anchors.right: parent.right
-            height: parent.height * 2
+            height: verticalFlick.contentHeight
 
             model: dayModel
 
@@ -44,6 +75,8 @@ Rectangle {
 
                 border.width: 0.5
                 border.color: palette.button
+
+                
 
 
                 ColumnLayout {
