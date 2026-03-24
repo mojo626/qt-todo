@@ -59,6 +59,7 @@ qt_add_qml_module(app
 		qml/CalendarMonthView.qml
 		qml/TodoView.qml
 		qml/CalendarWeekView.qml
+		qml/WeekViewDay.qml
 	RESOURCES
 		fonts/MaterialDesignIconsDesktop.ttf
 )

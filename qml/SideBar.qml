@@ -57,7 +57,7 @@ Rectangle {
                         font.family: materialIcons.name
                         font.pixelSize: 20
                         text: Icons.mdi("F0765")
-                        color: modelData.color
+                        color: modelData.color.substring(0, 7)
                     }
 
                     Label {
