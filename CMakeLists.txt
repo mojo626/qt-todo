@@ -56,10 +56,12 @@ qt_add_qml_module(app
 		qml/MainView.qml
 		qml/IconButton.qml
 		qml/Icons.qml
-		qml/CalendarMonthView.qml
+		qml/MonthView/CalendarMonthView.qml
 		qml/TodoView.qml
 		qml/CalendarWeekView.qml
 		qml/WeekViewDay.qml
+		qml/MonthView/MonthViewWeekRow.qml
+		qml/MonthView/MonthViewEvents.qml
 	RESOURCES
 		fonts/MaterialDesignIconsDesktop.ttf
 )
