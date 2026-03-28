@@ -68,9 +68,6 @@ Rectangle {
 
                 property var event: modelData
 
-                Component.onCompleted: {
-                    console.log(event.summary);
-                }
 
                 height: (event.end.getHours() - event.start.getHours()) * weekView.hourHeight
 

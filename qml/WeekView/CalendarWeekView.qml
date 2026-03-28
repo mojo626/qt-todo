@@ -63,6 +63,7 @@ Rectangle {
             clip: true
 
             onCountChanged: {
+                console.log(count);
                 if (count > 0) {
                     positionViewAtIndex(Math.floor(count / 2), ListView.Contain);
                     dayList.currentIndex = Math.floor(count / 2);

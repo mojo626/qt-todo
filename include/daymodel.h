@@ -13,7 +13,7 @@ class DayModel : public QAbstractListModel {
 
         QVariant data(const QModelIndex &index, int role) const override;
         int rowCount(const QModelIndex &) const override;
-        void generateDays(QDate centerDate, int count = 1400);
+        void generateDays(QDate centerDate, int count = 200);
 
     private:
         QVector<QDate> days;
