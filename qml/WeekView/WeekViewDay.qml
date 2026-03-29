@@ -35,14 +35,19 @@ Rectangle {
             return new Date(date.toUTCString());  
         }
 
+        property bool loaded: false
+
         Component.onCompleted: {
-            var endOfDay = day_column.dayDate;
-            endOfDay.setHours(23);
-            endOfDay.setMinutes(59);
-            var startOfDay = day_column.dayDate;
-            startOfDay.setHours(0);
-            startOfDay.setMinutes(0);
-            day_column.events = calendarUtil.getEventsInRange(startOfDay, endOfDay);
+            if (!loaded) {
+                var startOfDay = new Date(day_column.dayDate);
+                startOfDay.setHours(0, 0, 0, 0);
+
+                var nextDay = new Date(startOfDay);
+                nextDay.setDate(nextDay.getDate() + 1);
+
+                day_column.events = calendarUtil.getEventsInRange(startOfDay, nextDay);
+                loaded = true;
+            }
             
         } 
 

@@ -91,8 +91,8 @@ bool DatabaseManager::upsertEvent(
     query.addBindValue(calendarId);
     query.addBindValue(etag);
     query.addBindValue(summary);
-    query.addBindValue(start.toUTC().toString(Qt::ISODate));
-    query.addBindValue(end.toUTC().toString(Qt::ISODate));
+    query.addBindValue(start.toUTC().toString(Qt::ISODateWithMs));
+    query.addBindValue(end.toUTC().toString(Qt::ISODateWithMs));
     query.addBindValue(timezone);
 
     if (!query.exec()) {
@@ -138,12 +138,10 @@ QList<QVariantMap> DatabaseManager::getEventsInRange(QDateTime start, QDateTime 
 
     QSqlQuery query;
 
-    //std::cout << start.toTimeZone(start.timeZone()).toString(Qt::ISODate).toStdString() << std::endl;
-
     query.prepare(R"(
         SELECT uid, summary, start_time, end_time, timezone, calendar_id
         FROM events
-        WHERE end_time >= ? AND start_time <= ?    
+        WHERE end_time > ? AND start_time < ?    
     )");
 
     query.addBindValue(start.toUTC().toString(Qt::ISODate));
@@ -164,8 +162,12 @@ QList<QVariantMap> DatabaseManager::getEventsInRange(QDateTime start, QDateTime 
         event["timezone"] = query.value(4);
         event["calendar_id"] = query.value(5);
 
+        std::cout << query.value(1).toString().toStdString() << std::endl;
+
         results.append(event);
     }
+
+    std::cout << std::endl;
 
     return results;
 }
